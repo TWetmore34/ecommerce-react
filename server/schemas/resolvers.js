@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Category, Order, Product, User } = require('../models')
+const { Category, Order, Product, User } = require('../models');
+const { authMiddleware, signToken } = require('../utils/auth')
 
 const resolvers = {
     Query: {
@@ -53,7 +54,8 @@ const resolvers = {
                 password
             }
             const created = await User.create(newUser, { new: true })
-            return created
+            const token = await signToken(firstname, email, newUser._id)
+            return { created, token }
         },
         addOrder: async (parent, { products }) => {
             const newOrder = await (await Order.create({ products }))
@@ -76,9 +78,22 @@ const resolvers = {
 
             return updatedProduct
         },
-        login: () => {
+        login: async (parent, { email, _id, password }) => {
             // set up auth file first
-            return null
+            const user = await User.findById(_id)
+
+            if(!user) return new AuthenticationError('User not found')
+
+            const correctPw = user.isCorrectPassword(password)
+
+            if(!correctPw) return new AuthenticationError('Incorrect username or password')
+
+
+
+            const token = signToken(email, user.firstname, _id)
+
+            return { user, token }
+
         }
     }
 }
