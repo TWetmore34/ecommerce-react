@@ -1,14 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import Header from './components/Header';
+import 'react-bootstrap'
+import Featured from './components/Featured.js';
+import './style.css'
+import ProductList from './components/ProductList';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Hello from V2</h1>
-      </header>
+    <div>
+      <Header />
+      <Featured />
+      <ProductList />
     </div>
   );
 }
