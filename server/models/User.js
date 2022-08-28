@@ -24,7 +24,6 @@ const userSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        minlength: 5
     },
     // order schema
     orders: [Order.schema]

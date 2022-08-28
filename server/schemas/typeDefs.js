@@ -26,7 +26,7 @@ const typeDefs = gql`
         name: String!
         description: String
         img: String
-        price: Int
+        price: Float
         quantity: Int
         category: Category
     }
@@ -63,7 +63,7 @@ const typeDefs = gql`
         updateProduct(_id: ID!, quantity: Int!): Product
 
         #login
-        login(email: String! password: String!): Auth
+        login(email: String!, password: String!, _id: ID): Auth
     }
 `
 
