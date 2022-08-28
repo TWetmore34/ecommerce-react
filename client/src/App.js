@@ -7,7 +7,6 @@ import ProductList from './components/ProductList';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-
 const httpLink = createHttpLink({
   uri: '/graphql'
 })
